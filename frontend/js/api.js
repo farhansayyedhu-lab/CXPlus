@@ -5,9 +5,7 @@
    ========================================================================== */
 
 const CX_API = (() => {
-  const API_BASE = (typeof window !== 'undefined' && window.__CX_API_BASE__)
-    ? window.__CX_API_BASE__
-    : 'http://localhost:5000/api';
+  const API_BASE = 'http://localhost:5000/api'; // Override via VITE_API_URL env if needed
   let isBackendOnline = false;
   let authToken = localStorage.getItem('cxpulse_token') || null;
 
