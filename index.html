@@ -13,17 +13,67 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Core Stylesheets -->
-  <link rel="stylesheet" href="css/theme.css">
-  <link rel="stylesheet" href="css/animations.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/theme.css?v=20261001">
+  <link rel="stylesheet" href="css/animations.css?v=20261001">
+  <link rel="stylesheet" href="css/components.css?v=20261001">
+  <link rel="stylesheet" href="css/main.css?v=20261001">
+
+  <!-- Core Preloaded Animation Libraries (Instant 0-delay WebGL rendering) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+
+  <!-- ======================================================================
+       IMMERSIVE FULL SCREEN NAVIGATION OVERLAY (GSAP Animated)
+       ====================================================================== -->
+  <div id="immersive-fullscreen-nav-overlay" class="immersive-nav-overlay" aria-hidden="true">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
+      <div>
+        <div style="font-size:12px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:#818CF8; margin-bottom:4px;">CXPulse® Intelligence</div>
+        <div style="font-size:13px; color:#94A3B8;">Autonomous Customer Experience & Neural Telemetry</div>
+      </div>
+      <div style="font-size:12px; color:#64748B; font-family:var(--font-mono);">San Francisco • London • Tokyo</div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:40px; margin:auto 0;">
+      <div class="immersive-nav-links-col" id="immersive-nav-links">
+        <a href="#features" class="immersive-nav-link-item" onclick="CXPulseApp.toggleImmersiveNav()">Intelligence</a>
+        <a href="#globe-telemetry" class="immersive-nav-link-item" onclick="CXPulseApp.toggleImmersiveNav()">Global Telemetry</a>
+        <a href="#radar-preview" class="immersive-nav-link-item" onclick="CXPulseApp.toggleImmersiveNav()">CX Radar™</a>
+        <a href="#app" class="immersive-nav-link-item" onclick="CXPulseApp.toggleImmersiveNav(); CXPulseApp.navigateTo('app', 'dashboard')">Executive Dashboard</a>
+        <a href="#login" class="immersive-nav-link-item" style="background:linear-gradient(135deg, #EC4899, #8B5CF6); -webkit-background-clip:text; -webkit-text-fill-color:transparent;" onclick="CXPulseApp.toggleImmersiveNav(); CXPulseApp.navigateTo('login', 'register')">Create Account →</a>
+      </div>
+
+      <div style="display:flex; gap:16px; flex-wrap:wrap;" id="immersive-nav-cards">
+        <div class="immersive-nav-media-card">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80" alt="Telemetry">
+          <div style="position:absolute; bottom:8px; left:10px; font-size:11px; font-weight:700; color:#FFF; background:rgba(0,0,0,0.7); padding:2px 8px; border-radius:4px;">Live Global Feed</div>
+        </div>
+        <div class="immersive-nav-media-card">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80" alt="Retention Insights">
+          <div style="position:absolute; bottom:8px; left:10px; font-size:11px; font-weight:700; color:#FFF; background:rgba(0,0,0,0.7); padding:2px 8px; border-radius:4px;">Real-Time Radar</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,0.08); padding-top:20px; font-size:13px; color:#64748B;">
+      <div>© 2026 CXPulse AI Inc. All rights reserved.</div>
+      <div style="display:flex; gap:20px;">
+        <span style="color:#A5B4FC; cursor:pointer;" onclick="CXPulseApp.showToast('Security SLA: 99.99% SOC2 Type II Certified', 'ai')">Security SLA</span>
+        <span style="color:#A5B4FC; cursor:pointer;" onclick="CXPulseApp.showToast('API Gateway Status: Operational (12ms latency)', 'success')">System Status</span>
+      </div>
+    </div>
+  </div>
 
   <!-- ======================================================================
        1. MARKETING LANDING PAGE VIEW
        ====================================================================== -->
   <section id="view-landing" class="landing-view">
+    <!-- Three.js WebGL Shader Lines Full Background Coverage -->
+    <div id="shader-lines-hero-canvas-container" class="shader-lines-full-bg"></div>
+
     <!-- Navigation Bar -->
     <header class="landing-nav">
       <div style="display:flex; align-items:center; gap:12px;">
@@ -33,44 +83,144 @@
         <span style="font-weight:800; font-size:18px; letter-spacing:-0.02em;">CXPulse</span>
       </div>
 
-      <nav class="landing-nav-links">
+      <nav class="landing-nav-links" style="display:flex; align-items:center; gap:10px;">
         <a href="#features" class="landing-nav-link">Intelligence</a>
+        <a href="#globe-telemetry" class="landing-nav-link">Global Telemetry</a>
         <a href="#radar-preview" class="landing-nav-link">CX Radar™</a>
-        <a href="#pricing" class="landing-nav-link">Enterprise</a>
-        <button class="btn btn-ghost btn-sm" onclick="CXPulseApp.navigateTo('login')">Sign In</button>
-        <button class="btn btn-ai btn-sm" onclick="CXPulseApp.navigateTo('app', 'dashboard')">
-          Explore CXPulse →
+        <a href="#testimonials" class="landing-nav-link">Customers</a>
+        <button class="shiny-button" style="padding:8px 18px; font-size:13px;" onclick="CXPulseApp.navigateTo('login', 'signin')">
+          <span>Sign In</span>
+        </button>
+        <button class="shiny-button" style="padding:8px 18px; font-size:13px; --gleam-accent:#EC4899; --gleam-accent-soft:#F472B6;" onclick="CXPulseApp.navigateTo('login', 'register')">
+          <span>Create Account</span>
+        </button>
+        <button class="shiny-button" style="padding:8px 20px; font-size:13px;" onclick="CXPulseApp.navigateTo('app', 'dashboard')">
+          <span>Explore CXPulse →</span>
+        </button>
+        <!-- Immersive Fullscreen Nav Trigger -->
+        <button id="immersive-nav-toggle-btn" class="nav-hamburger-btn" aria-label="Toggle Fullscreen Navigation" onclick="CXPulseApp.toggleImmersiveNav()">
+          <span class="nav-hamburger-bar"></span>
+          <span class="nav-hamburger-bar"></span>
+          <span class="nav-hamburger-bar"></span>
         </button>
       </nav>
     </header>
 
     <!-- Hero Section -->
-    <main class="hero-section">
+    <main class="hero-section" style="position:relative; overflow:visible;">
+      <!-- Orbiting Circles Concentric Dashed Paths (HeroSection_06 Theme) -->
+      <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; z-index:0; overflow:hidden;">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="position:absolute; width:1000px; height:1000px; max-width:100vw; pointer-events:none; opacity:0.35;">
+          <circle stroke="rgba(99,102,241,0.25)" stroke-width="1" stroke-dasharray="5 5" cx="50%" cy="50%" r="280" fill="none"/>
+          <circle stroke="rgba(165,180,252,0.18)" stroke-width="1" stroke-dasharray="5 5" cx="50%" cy="50%" r="380" fill="none"/>
+          <circle stroke="rgba(236,72,153,0.15)" stroke-width="1" stroke-dasharray="5 5" cx="50%" cy="50%" r="480" fill="none"/>
+        </svg>
+
+        <!-- Orbital Nodes rotating smoothly around Hero -->
+        <div class="animate-orbit" style="--duration:24; --radius:280; --angle:45; position:absolute; z-index:1;">
+          <div style="background:rgba(15,23,42,0.9); border:1px solid rgba(99,102,241,0.4); padding:4px 10px; border-radius:99px; font-size:11px; font-weight:700; color:#A5B4FC; backdrop-filter:blur(8px); white-space:nowrap; box-shadow:0 4px 16px rgba(0,0,0,0.5);">
+            ⚡ 14ms AI Synthesis
+          </div>
+        </div>
+
+        <div class="animate-orbit" style="--duration:32; --radius:380; --angle:160; position:absolute; z-index:1;">
+          <div style="background:rgba(15,23,42,0.9); border:1px solid rgba(16,185,129,0.4); padding:4px 10px; border-radius:99px; font-size:11px; font-weight:700; color:#34D399; backdrop-filter:blur(8px); white-space:nowrap; box-shadow:0 4px 16px rgba(0,0,0,0.5);">
+            ✨ 94.8% CSAT
+          </div>
+        </div>
+
+        <div class="animate-orbit" style="--duration:40; --radius:480; --angle:280; position:absolute; z-index:1;">
+          <div style="background:rgba(15,23,42,0.9); border:1px solid rgba(244,63,94,0.4); padding:4px 10px; border-radius:99px; font-size:11px; font-weight:700; color:#FDA4AF; backdrop-filter:blur(8px); white-space:nowrap; box-shadow:0 4px 16px rgba(0,0,0,0.5);">
+            🚨 Real-Time Churn Radar
+          </div>
+        </div>
+      </div>
+
       <div class="hero-glow"></div>
 
       <div class="hero-badge animate-fade-in">
         <span class="pulse-dot ai"></span>
-        <span>CXPulse 2.0 with Real-Time Customer Radar is Live</span>
+        <span>Aether Living Shader Mesh • CXPulse 2.0 Real-Time Customer Radar</span>
       </div>
 
       <h1 class="hero-title animate-fade-in">
-        Turn every customer conversation<br>
-        <span class="hero-title-gradient">into an opportunity.</span>
+        Make the impossible feel inevitable.<br>
+        <span class="hero-title-gradient">Turn conversations into growth.</span>
       </h1>
 
       <p class="hero-subtitle animate-fade-in">
-        CXPulse uses AI to understand customers, prioritize support, personalize responses, and uncover the insights hidden inside every conversation.
+        Autonomous CX Intelligence with living WebGL shader background, predictive churn radar, and AI prioritization across every customer touchpoint.
       </p>
 
-      <div class="hero-ctas animate-fade-in">
-        <button class="btn btn-ai btn-lg" onclick="CXPulseApp.navigateTo('app', 'dashboard')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-          Explore CXPulse
+      <div class="hero-ctas animate-fade-in" style="gap:16px; margin-bottom: 28px;">
+        <button class="shiny-button" onclick="CXPulseApp.navigateTo('app', 'dashboard')">
+          <span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Explore CXPulse Live
+          </span>
         </button>
-        <button class="btn btn-secondary btn-lg" onclick="CXPulseApp.navigateTo('app', 'dashboard'); setTimeout(() => CXPulseApp.openSimulateModal(), 400);">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          View Demo
+        <button class="shiny-button" style="--gleam-accent:#EC4899; --gleam-accent-soft:#F472B6;" onclick="CXPulseApp.navigateTo('login', 'register')">
+          <span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+            Create Free Account
+          </span>
         </button>
+      </div>
+
+      <!-- Spectrum UI BeamSearch Component in Hero: Autonomous CX Intelligence -->
+      <div class="animate-fade-in" style="max-width: 580px; margin: 0 auto 36px;">
+        <div class="beam-search-wrapper" id="hero-beam-search-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="search" id="hero-beam-input" placeholder="Search autonomous intelligence, customer sentiment, SLA breach..." oninput="CXPulseApp.handleHeroBeamSearch(this.value)" onkeydown="if(event.key==='Enter'){CXPulseApp.openSearch();}">
+          <kbd class="search-shortcut" onclick="CXPulseApp.openSearch()" style="cursor:pointer;">⌘K</kbd>
+          <div class="beam-search-line"></div>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:12px;">
+          <span style="font-size:11px; color:#64748B; font-weight:600; text-transform:uppercase; margin-right:4px; align-self:center;">Try Intelligence Queries:</span>
+          <button class="pill-chip" onclick="CXPulseApp.openSearchWithQuery('Critical')">🚨 P1 Churn Risk</button>
+          <button class="pill-chip" onclick="CXPulseApp.openSearchWithQuery('Negative')">📉 Sentiment Drift</button>
+          <button class="pill-chip" onclick="CXPulseApp.openSearchWithQuery('Delivery')">📦 Delivery Delays</button>
+          <button class="pill-chip" onclick="CXPulseApp.openSearchWithQuery('Marcus')">👤 Marcus Vance (₹1,00,000)</button>
+        </div>
+      </div>
+
+      <!-- 3D Global Customer Telemetry Section (Cobe Globe) in Starting Area -->
+      <div class="globe-section-wrap animate-fade-in" id="globe-telemetry">
+        <div style="flex:1; min-width:280px;">
+          <div class="badge badge-ai" style="margin-bottom:12px;">
+            <span class="pulse-dot ai"></span> Live 3D Global Telemetry
+          </div>
+          <h3 style="font-size:24px; font-weight:800; color:#FFFFFF; margin-bottom:12px; line-height:1.25;">
+            Autonomous Customer Intelligence Across 48+ Enterprise Hubs
+          </h3>
+          <p style="font-size:14px; color:#94A3B8; line-height:1.6; margin-bottom:20px;">
+            Real-time neural monitoring detects sentiment changes, SLA breaches, and retention risk across global clusters before friction escalates.
+          </p>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:12px; margin-bottom:20px;">
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:10px 12px; border-radius:8px;">
+              <div style="font-size:11px; color:#64748B;">New York (NYC-01)</div>
+              <div style="font-size:15px; font-weight:700; color:#FFF;">847 Active <span class="globe-marker-up">↑12%</span></div>
+            </div>
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:10px 12px; border-radius:8px;">
+              <div style="font-size:11px; color:#64748B;">London (LON-02)</div>
+              <div style="font-size:15px; font-weight:700; color:#FFF;">623 Active <span class="globe-marker-down">↓3%</span></div>
+            </div>
+            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); padding:10px 12px; border-radius:8px;">
+              <div style="font-size:11px; color:#64748B;">Tokyo (TYO-04)</div>
+              <div style="font-size:15px; font-weight:700; color:#FFF;">412 Active <span class="globe-marker-up">↑8%</span></div>
+            </div>
+          </div>
+
+          <button class="shiny-button" style="padding:10px 22px; font-size:13px;" onclick="CXPulseApp.navigateTo('login', 'register')">
+            <span>Sign Up for Live Telemetry →</span>
+          </button>
+        </div>
+
+        <div class="globe-canvas-wrap">
+          <canvas id="cobe-globe-canvas" style="width:100%; height:100%; border-radius:50%; cursor:grab;"></canvas>
+        </div>
       </div>
 
       <!-- Hero Visual: Large Interactive AI Dashboard Preview with Floating Cards -->
@@ -159,6 +309,72 @@
       </div>
     </main>
 
+    <!-- Interactive Scroll Expansion Media Hero Showcase -->
+    <section class="scroll-hero-section" id="radar-preview">
+      <div class="scroll-hero-backdrop" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80');"></div>
+
+      <div class="scroll-hero-toggle-bar">
+        <button type="button" id="scroll-hero-btn-video" class="scroll-hero-toggle-btn active" onclick="CXPulseApp.setScrollHeroMedia('video')">
+          🎥 Cosmic Neural Stream
+        </button>
+        <button type="button" id="scroll-hero-btn-image" class="scroll-hero-toggle-btn" onclick="CXPulseApp.setScrollHeroMedia('image')">
+          🖼️ Deep Telemetry Matrix
+        </button>
+        <button type="button" id="scroll-hero-expand-toggle" class="scroll-hero-toggle-btn" style="border-color: rgba(99,102,241,0.5); color:#818CF8;" onclick="CXPulseApp.toggleScrollHeroExpansion()">
+          Expand Viewport ↗
+        </button>
+      </div>
+
+      <div class="scroll-hero-title-overlay" style="mix-blend-mode: difference;">
+        <h2 class="scroll-hero-title-part" id="scroll-hero-first-word">Autonomous</h2>
+        <h2 class="scroll-hero-title-part" id="scroll-hero-rest-title">CX Intelligence</h2>
+      </div>
+
+      <div class="scroll-hero-media-box" id="scroll-hero-box">
+        <!-- Video Mode -->
+        <div id="scroll-hero-video" style="width:100%; height:100%; position:relative;">
+          <video
+            src="https://me7aitdbxq.ufs.sh/f/2wsMIGDMQRdYuZ5R8ahEEZ4aQK56LizRdfBSqeDMsmUIrJN1"
+            poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1280&q=80"
+            autoplay
+            muted
+            loop
+            playsinline
+            style="width:100%; height:100%; object-fit:cover;"
+          ></video>
+          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(10,14,26,0.6) 0%, transparent 60%);"></div>
+          <div style="position:absolute; bottom:24px; left:28px; right:28px; display:flex; justify-content:space-between; align-items:flex-end;">
+            <div>
+              <span class="badge badge-ai" style="margin-bottom:8px;"><span class="pulse-dot ai"></span> Neural Radar Stream</span>
+              <div style="color:#FFF; font-size:16px; font-weight:700;">Real-time Multidimensional Churn Detection</div>
+            </div>
+            <button class="shiny-button" style="padding:10px 22px; font-size:13px;" onclick="CXPulseApp.navigateTo('app', 'radar')">
+              <span>Launch CX Radar →</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Image Mode -->
+        <div id="scroll-hero-image" style="width:100%; height:100%; position:relative; display:none;">
+          <img
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80"
+            alt="Deep Telemetry Matrix"
+            style="width:100%; height:100%; object-fit:cover;"
+          />
+          <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(10,14,26,0.7) 0%, transparent 60%);"></div>
+          <div style="position:absolute; bottom:24px; left:28px; right:28px; display:flex; justify-content:space-between; align-items:flex-end;">
+            <div>
+              <span class="badge badge-ai" style="margin-bottom:8px;"><span class="pulse-dot ai"></span> Enterprise Cluster</span>
+              <div style="color:#FFF; font-size:16px; font-weight:700;">Predictive SLA & Retention Vector Engine</div>
+            </div>
+            <button class="shiny-button" style="padding:10px 22px; font-size:13px;" onclick="CXPulseApp.navigateTo('app', 'dashboard')">
+              <span>View Dashboard →</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 5 Dedicated Sections Required by Specification -->
     <section class="landing-features" id="features">
       <div style="text-align:center; max-width:680px; margin:0 auto 40px;">
@@ -227,6 +443,95 @@
       </div>
 
       <!-- Bottom Landing CTA -->
+      <!-- Community Testimonials Infinite Scroller Section (Spectrum UI / CXPulse) -->
+      <section class="testimonials-section" id="testimonials">
+        <div style="text-align:center; max-width:680px; margin:0 auto 30px;">
+          <div class="badge badge-ai" style="margin-bottom:12px;">
+            <span class="pulse-dot ai"></span> Customer Voice & Retention Stories
+          </div>
+          <h2 style="font-size: clamp(28px, 4vw, 42px); font-weight:800; color:#FFFFFF; margin-bottom:12px; letter-spacing:-0.02em;">
+            Trusted by Modern CX & Retention Leaders
+          </h2>
+          <p style="color:var(--text-secondary); font-size:15px; line-height:1.6;">
+            See how fast-moving support and customer success teams eliminate churn with autonomous AI sentiment detection and instant proactive response.
+          </p>
+        </div>
+
+        <div class="testimonials-grid-rows">
+          <!-- Row 1: Leftward Marquee -->
+          <div class="animate-scroll-horizontal" style="--scroll-duration: 32s;">
+            <div class="testimonial-card">
+              <p style="font-size:14px; color:#E2E8F0; line-height:1.6;">"Seeing customer sentiment and risk in one place completely changed how our support team prioritizes critical enterprise tickets."</p>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:1.5px solid rgba(99,102,241,0.5);">
+                <div>
+                  <div style="font-size:13px; font-weight:700; color:#FFF;">Sarah Jenkins</div>
+                  <div style="font-size:11px; color:#94A3B8;">VP of Customer Experience, CloudScale</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <p style="font-size:14px; color:#E2E8F0; line-height:1.6;">"Instead of reading every conversation manually, we immediately identify which accounts have high churn probability before SLAs breach."</p>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:1.5px solid rgba(99,102,241,0.5);">
+                <div>
+                  <div style="font-size:13px; font-weight:700; color:#FFF;">David Chen</div>
+                  <div style="font-size:11px; color:#94A3B8;">Head of Support Engineering, NexusHQ</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <p style="font-size:14px; color:#E2E8F0; line-height:1.6;">"The AI response suggestions save our agents 18+ hours weekly while keeping tone empathetic and customized to client contract history."</p>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:1.5px solid rgba(99,102,241,0.5);">
+                <div>
+                  <div style="font-size:13px; font-weight:700; color:#FFF;">Elena Rostova</div>
+                  <div style="font-size:11px; color:#94A3B8;">Director of Retention, FinEdge Global</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Rightward Marquee -->
+          <div class="animate-scroll-horizontal-reverse" style="--scroll-duration: 36s;">
+            <div class="testimonial-card">
+              <p style="font-size:14px; color:#E2E8F0; line-height:1.6;">"The CX Radar identified a subtle delivery delay complaint pattern affecting 18 accounts that saved us over ₹3,18,00,000 in at-risk ARR."</p>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&auto=format&fit=crop&q=80" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:1.5px solid rgba(99,102,241,0.5);">
+                <div>
+                  <div style="font-size:13px; font-weight:700; color:#FFF;">Marcus Vance</div>
+                  <div style="font-size:11px; color:#94A3B8;">Chief Customer Officer, ApexLogistics</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <p style="font-size:14px; color:#E2E8F0; line-height:1.6;">"Autonomous auto-resolve handles our repetitive tier-1 questions with 94% CSAT, freeing our team for strategic partnerships."</p>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:1.5px solid rgba(99,102,241,0.5);">
+                <div>
+                  <div style="font-size:13px; font-weight:700; color:#FFF;">Maya Patel</div>
+                  <div style="font-size:11px; color:#94A3B8;">Global CX Operations Lead, Omnia SaaS</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-card">
+              <p style="font-size:14px; color:#E2E8F0; line-height:1.6;">"Real-time telemetry and 3D customer hub monitoring gave our executive team instant visibility during our peak enterprise renewal cycle."</p>
+              <div style="display:flex; align-items:center; gap:12px;">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&auto=format&fit=crop&q=80" style="width:42px; height:42px; border-radius:50%; object-fit:cover; border:1.5px solid rgba(99,102,241,0.5);">
+                <div>
+                  <div style="font-size:13px; font-weight:700; color:#FFF;">Julian Thorne</div>
+                  <div style="font-size:11px; color:#94A3B8;">SVP of Operations, NovaCommerce</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div style="margin-top:60px; text-align:center; padding:48px; background:linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(139,92,246,0.05) 100%); border:1px solid rgba(99,102,241,0.25); border-radius:16px;">
         <h3 style="font-size:24px; font-weight:800; color:#FFF; margin-bottom:12px;">Ready to see CXPulse in action?</h3>
         <p style="color:var(--text-secondary); max-width:540px; margin:0 auto 24px;">
@@ -258,7 +563,7 @@
           Autonomous customer intelligence for modern operations.
         </h2>
         <p style="font-size:15px; color:#94A3B8; line-height:1.6; margin-bottom:24px;">
-          "CXPulse completely eliminated blind spots in our support queue and allowed us to proactively retain $480K in at-risk enterprise contracts."
+          "CXPulse completely eliminated blind spots in our support queue and allowed us to proactively retain ₹4,02,00,000 in at-risk enterprise contracts."
         </p>
         <div style="display:flex; align-items:center; gap:12px;">
           <div class="avatar" style="background:#10B981; color:#FFF; font-weight:700;">DC</div>
@@ -274,50 +579,162 @@
       </div>
     </div>
 
-    <!-- Right Pane: Clean Login Form -->
+    <!-- Right Pane: Clean Login & Account Creation Forms -->
     <div class="login-right-pane">
       <div class="login-form-card">
-        <div style="margin-bottom:24px;">
-          <h2 style="font-size:22px; font-weight:800; color:var(--text-primary); margin-bottom:6px;">Sign in to CXPulse</h2>
-          <p style="font-size:13px; color:var(--text-tertiary);">Select demo credentials to explore the live application immediately.</p>
-        </div>
-
-        <!-- 1-Click Quick Demo Presets for Judges -->
-        <div style="margin-bottom:20px; padding:14px; background:rgba(99,102,241,0.08); border:1px solid rgba(99,102,241,0.25); border-radius:var(--radius-sm);">
-          <div style="font-size:11px; text-transform:uppercase; font-weight:700; color:#818CF8; margin-bottom:8px;">
-            ⚡ Quick Demo 1-Click Access
-          </div>
-          <button class="btn btn-ai" style="width:100%; justify-content:center;" onclick="CXPulseApp.navigateTo('app', 'dashboard')">
-            Log in as Alex Morgan (Head of CX) →
+        <!-- Tab Selector: Sign In vs Create Account -->
+        <div class="auth-tabs">
+          <button type="button" class="auth-tab-btn active" id="tab-btn-signin" onclick="CXPulseApp.switchAuthTab('signin')">
+            Sign In
+          </button>
+          <button type="button" class="auth-tab-btn" id="tab-btn-register" onclick="CXPulseApp.switchAuthTab('register')">
+            Create Account
           </button>
         </div>
 
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom:20px;">
-          <div style="flex:1; height:1px; background:var(--border-subtle);"></div>
-          <span style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase;">or continue with email</span>
-          <div style="flex:1; height:1px; background:var(--border-subtle);"></div>
-        </div>
-
-        <form onsubmit="event.preventDefault(); CXPulseApp.navigateTo('app', 'dashboard');">
-          <div class="form-group">
-            <label class="form-label">Work Email</label>
-            <input type="email" class="form-input" value="alex.morgan@cxpulse.ai" required>
+        <!-- ================= SIGN IN TAB ================= -->
+        <div id="auth-signin-pane">
+          <div style="margin-bottom:20px;">
+            <h2 style="font-size:22px; font-weight:800; color:var(--text-primary); margin-bottom:6px;">Sign in to CXPulse</h2>
+            <p style="font-size:13px; color:var(--text-tertiary);">Access your real-time customer intelligence dashboard.</p>
           </div>
-          <div class="form-group">
-            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-              <label class="form-label" style="margin-bottom:0;">Password</label>
-              <a href="#" style="font-size:11px; color:var(--primary-400); text-decoration:none;">Forgot?</a>
+
+          <!-- 1-Click Quick Demo Presets for Evaluators -->
+          <div style="margin-bottom:20px; padding:14px; background:rgba(99,102,241,0.08); border:1px solid rgba(99,102,241,0.25); border-radius:var(--radius-sm);">
+            <div style="font-size:11px; text-transform:uppercase; font-weight:700; color:#818CF8; margin-bottom:8px;">
+              ⚡ Quick Demo 1-Click Access
             </div>
-            <input type="password" class="form-input" value="••••••••••••" required>
+            <button class="shiny-button" style="width:100%; justify-content:center; padding:10px; font-size:13px;" onclick="CXPulseApp.handleQuickDemoLogin('alex.morgan@cxpulse.ai', 'cxpulse2026')">
+              <span>Log in as Alex Morgan (Head of CX) →</span>
+            </button>
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%; padding:10px; margin-top:10px;">
-            Sign In to Dashboard
-          </button>
-        </form>
 
-        <div style="margin-top:24px; text-align:center;">
-          <a href="#" onclick="CXPulseApp.navigateTo('landing')" style="font-size:13px; color:var(--text-secondary); text-decoration:none;">
-            ← Back to Landing Page
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+            <div style="flex:1; height:1px; background:var(--border-subtle);"></div>
+            <span style="font-size:11px; color:var(--text-tertiary); text-transform:uppercase;">or continue with email</span>
+            <div style="flex:1; height:1px; background:var(--border-subtle);"></div>
+          </div>
+
+          <div id="signin-error" class="auth-alert-error" style="display:none;"></div>
+
+          <form id="auth-signin-form" onsubmit="CXPulseApp.handleLogin(event)">
+            <div class="form-group">
+              <label class="form-label" for="login-email">Work Email</label>
+              <input type="email" id="login-email" class="form-input" placeholder="alex.morgan@cxpulse.ai" value="alex.morgan@cxpulse.ai" required>
+            </div>
+            <div class="form-group">
+              <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                <label class="form-label" for="login-password" style="margin-bottom:0;">Password</label>
+                <a href="#" onclick="CXPulseApp.showToast('Demo mode: Use cxpulse2026 or password123', 'ai'); return false;" style="font-size:11px; color:var(--primary-400); text-decoration:none;">Forgot?</a>
+              </div>
+              <input type="password" id="login-password" class="form-input" placeholder="••••••••••••" value="cxpulse2026" required>
+            </div>
+            <button type="submit" id="signin-submit-btn" class="shiny-button" style="width:100%; padding:12px; margin-top:6px; justify-content:center;">
+              <span>Sign In to Dashboard →</span>
+            </button>
+          </form>
+
+          <div style="margin-top:18px; text-align:center;">
+            <span style="font-size:13px; color:var(--text-tertiary);">Don't have an account? </span>
+            <a href="#" onclick="CXPulseApp.switchAuthTab('register'); return false;" style="font-size:13px; color:var(--primary-400); text-decoration:none; font-weight:600;">
+              Create one now
+            </a>
+          </div>
+        </div>
+
+        <!-- ================= CREATE ACCOUNT TAB ================= -->
+        <div id="auth-register-pane" style="display:none;">
+          <div style="margin-bottom:20px;">
+            <h2 style="font-size:22px; font-weight:800; color:var(--text-primary); margin-bottom:6px;">Create your Account</h2>
+            <p style="font-size:13px; color:var(--text-tertiary);">Join the CXPulse autonomous AI telemetry system.</p>
+          </div>
+
+          <div id="register-error" class="auth-alert-error" style="display:none;"></div>
+          <div id="register-success" class="auth-alert-success" style="display:none;"></div>
+
+          <form id="auth-register-form" onsubmit="CXPulseApp.handleRegister(event)">
+            <div class="form-group">
+              <label class="form-label" for="reg-name">Full Name</label>
+              <input type="text" id="reg-name" class="form-input" placeholder="e.g. Jordan Hayes" required minlength="2">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reg-email">Work Email</label>
+              <input type="email" id="reg-email" class="form-input" placeholder="jordan@cxpulse.ai" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reg-role">Role / Department</label>
+              <select id="reg-role" class="form-select">
+                <option value="support_agent" selected>Support Agent (Tier 2/3)</option>
+                <option value="CX Manager">CX Operations Manager</option>
+                <option value="Head of Customer Experience">Head of Customer Experience</option>
+                <option value="admin">System Administrator</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="reg-password">Password</label>
+              <input type="password" id="reg-password" class="form-input" placeholder="Enter secure password" minlength="6" required oninput="CXPulseApp.updatePasswordStrength(this.value)">
+              
+              <!-- Live Password Strength Meter -->
+              <div id="reg-password-strength" class="ps-meter-container">
+                <div class="ps-bars-grid" role="meter" aria-label="Password strength" aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" id="ps-meter-bars">
+                  <div class="ps-bar-track"><div class="ps-bar-fill ps-bar-tone-none" id="ps-bar-0"></div></div>
+                  <div class="ps-bar-track"><div class="ps-bar-fill ps-bar-tone-none" id="ps-bar-1"></div></div>
+                  <div class="ps-bar-track"><div class="ps-bar-fill ps-bar-tone-none" id="ps-bar-2"></div></div>
+                  <div class="ps-bar-track"><div class="ps-bar-fill ps-bar-tone-none" id="ps-bar-3"></div></div>
+                </div>
+
+                <div class="ps-info-row">
+                  <span class="ps-label-text ps-label-tone-none" id="ps-label">Empty</span>
+                  <span class="ps-guessable-badge" id="ps-guessable">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    Commonly guessed
+                  </span>
+                </div>
+
+                <ul class="ps-rules-list" id="ps-rules">
+                  <li class="ps-rule-item" id="ps-rule-length">
+                    <span class="ps-rule-badge"><span class="ps-rule-badge-fill"></span><svg viewBox="0 0 12 12" fill="none" class="ps-rule-svg"><path d="M2 6.2 4.7 8.9 10 3.3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span>12 characters or more</span>
+                  </li>
+                  <li class="ps-rule-item" id="ps-rule-case">
+                    <span class="ps-rule-badge"><span class="ps-rule-badge-fill"></span><svg viewBox="0 0 12 12" fill="none" class="ps-rule-svg"><path d="M2 6.2 4.7 8.9 10 3.3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span>Upper and lower case</span>
+                  </li>
+                  <li class="ps-rule-item" id="ps-rule-digit">
+                    <span class="ps-rule-badge"><span class="ps-rule-badge-fill"></span><svg viewBox="0 0 12 12" fill="none" class="ps-rule-svg"><path d="M2 6.2 4.7 8.9 10 3.3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span>A number</span>
+                  </li>
+                  <li class="ps-rule-item" id="ps-rule-symbol">
+                    <span class="ps-rule-badge"><span class="ps-rule-badge-fill"></span><svg viewBox="0 0 12 12" fill="none" class="ps-rule-svg"><path d="M2 6.2 4.7 8.9 10 3.3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span>A symbol</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <button type="submit" id="register-submit-btn" class="shiny-button" style="width:100%; padding:12px; margin-top:10px; justify-content:center; --gleam-accent:#EC4899; --gleam-accent-soft:#F472B6;">
+              <span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                Create Account & Launch CXPulse →
+              </span>
+            </button>
+          </form>
+
+          <div style="margin-top:18px; text-align:center;">
+            <span style="font-size:13px; color:var(--text-tertiary);">Already have an account? </span>
+            <a href="#" onclick="CXPulseApp.switchAuthTab('signin'); return false;" style="font-size:13px; color:var(--primary-400); text-decoration:none; font-weight:600;">
+              Sign In
+            </a>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; text-align:center; border-top:1px solid var(--border-subtle); padding-top:16px;">
+          <a href="#" onclick="CXPulseApp.navigateTo('landing'); return false;" style="font-size:13px; color:var(--text-secondary); text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+            Back to Landing Page
           </a>
         </div>
       </div>
@@ -380,11 +797,11 @@
           <span class="nav-item-label">Settings</span>
         </div>
 
-        <div class="user-profile-widget" onclick="CXPulseApp.navigateTo('login')">
-          <div class="avatar" style="background:#6366F1; color:#FFF; font-weight:700;">AM</div>
+        <div class="user-profile-widget" onclick="CXPulseApp.navigateTo('login')" title="Click to view account / switch user">
+          <div class="avatar" id="sidebar-user-avatar" style="background:#6366F1; color:#FFF; font-weight:700;">AM</div>
           <div class="user-info-text">
-            <div style="font-size:13px; font-weight:600; color:var(--text-primary);">Alex Morgan</div>
-            <div style="font-size:11px; color:var(--text-tertiary);">Head of CX • Online</div>
+            <div id="sidebar-user-name" style="font-size:13px; font-weight:600; color:var(--text-primary);">Alex Morgan</div>
+            <div id="sidebar-user-role" style="font-size:11px; color:var(--text-tertiary);">Head of CX • Online</div>
           </div>
         </div>
       </div>
@@ -490,14 +907,15 @@
   </div>
 
   <!-- ======================================================================
-       6. GLOBAL SEARCH MODAL (Ctrl + K)
+       6. GLOBAL SEARCH MODAL (Ctrl + K) - Spectrum UI BeamSearch
        ====================================================================== -->
   <div id="search-modal" class="search-modal-backdrop" onclick="if(event.target === this) CXPulseApp.closeSearch();">
     <div class="search-modal-box">
-      <div class="search-input-header">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <div class="beam-search-wrapper always-on" style="background:rgba(10,14,26,0.95); border-radius:12px 12px 0 0; border:none; border-bottom:1px solid rgba(255,255,255,0.1);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#818CF8" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <input type="text" id="global-search-input" class="search-modal-input" placeholder="Search accounts, sentiment, tickets, or press ESC to exit...">
         <kbd class="search-shortcut" onclick="CXPulseApp.closeSearch()" style="cursor:pointer;">ESC</kbd>
+        <div class="beam-search-line"></div>
       </div>
       <div id="search-results-list" class="search-results-list">
         <div style="padding:16px; font-size:13px; color:var(--text-tertiary);">
@@ -513,11 +931,11 @@
   <div id="toast-container" class="toast-container"></div>
 
   <!-- Application Logic Modules -->
-  <script src="js/data.js"></script>
-  <script src="js/api.js"></script>
-  <script src="js/charts.js"></script>
-  <script src="js/radar.js"></script>
-  <script src="js/composer.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/data.js?v=20261001"></script>
+  <script src="js/api.js?v=20261001"></script>
+  <script src="js/charts.js?v=20261001"></script>
+  <script src="js/radar.js?v=20261001"></script>
+  <script src="js/composer.js?v=20261001"></script>
+  <script src="js/app.js?v=20261001"></script>
 </body>
 </html>

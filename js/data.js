@@ -1,6 +1,6 @@
 /* ==========================================================================
    CXPulse Enterprise Mock Data Store
-   Realistic, High-Fidelity Data for Hackathon Demonstration
+   Realistic, High-Fidelity Data for Hackathon Demonstration (INR Only)
    ========================================================================== */
 
 const CX_DATA = {
@@ -9,7 +9,23 @@ const CX_DATA = {
     role: "Head of Customer Experience",
     avatar: "AM",
     email: "alex.morgan@cxpulse.ai",
-    status: "Active"
+    status: "Active",
+    orbitalTheme: "Autonomous Orbital Intelligence",
+    aetherTheme: {
+      themeName: "Aether Living Shader Aurora",
+      engine: "WebGL 2.0 GPU Shader",
+      shaderType: "Aether Cosmic Ray Mesh",
+      headline: "Make the impossible feel inevitable.",
+      subtitle: "Autonomous CX Intelligence with living shader telemetry & real-time churn radar.",
+      dprMax: 2,
+      activeStatus: "Online & Synchronized"
+    },
+    retentionScore: "94.8 CSAT",
+    activeHubsCount: 48,
+    protectedArr: "₹3,80,00,000",
+    aiAutonomyRate: "78.4%",
+    orbitalMeshStatus: "Synchronized",
+    lastNeuralScan: "Just now"
   },
 
   metrics: {
@@ -17,6 +33,7 @@ const CX_DATA = {
       value: "14,820",
       change: "+8.4%",
       trend: "up-good",
+      orbitalBand: "Tier-1 Global Mesh",
       sparkline: [22, 28, 25, 34, 38, 42, 49, 53, 58, 62]
     },
     openTickets: {
@@ -46,7 +63,7 @@ const CX_DATA = {
     impact: "High",
     impactBadge: "badge-critical",
     confidence: "94%",
-    affectedCount: "84 Accounts ($142k ARR)",
+    affectedCount: "84 Accounts (₹1,42,00,000 ARR)",
     recommendation: "Investigate fulfillment delays in EU West region and proactively notify affected customers with courtesy shipping upgrades.",
     affectedFilter: "delivery"
   },
@@ -67,9 +84,9 @@ const CX_DATA = {
       waitingTime: "24m ago",
       riskScore: 88,
       riskLevel: "Critical",
-      ltv: "$48,000 ARR",
+      ltv: "₹48,00,000 ARR",
       since: "Mar 2023",
-      aiRecommendation: "Issue instant $150 credit and route to Senior VP engineering",
+      aiRecommendation: "Issue instant ₹15,000 credit and route to Senior VP engineering",
       intent: "Cancel Subscription / Chargeback Threat",
       emotion: "Extreme Frustration & Urgency",
       whyRisk: [
@@ -79,7 +96,7 @@ const CX_DATA = {
         "Customer satisfaction decreased 38% after billing revamp"
       ],
       nextActions: [
-        "Issue instant courtesy credit of $150 and expedited reshipment.",
+        "Issue instant courtesy credit of ₹15,000 and expedited reshipment.",
         "Connect directly with Senior Account Manager via priority line.",
         "Waive renewal price increase for next billing cycle."
       ],
@@ -91,10 +108,10 @@ const CX_DATA = {
         { label: "AI Churn Alert", time: "Today", status: "active" }
       ],
       suggestedResponses: {
-        default: "Hi Marcus,\n\nI sincerely apologize for the frustration with the 7-day refund delay and the API synchronization issue. I have personally escalated order #CX-9021 for immediate manual processing, and our VP of Engineering is already deploying a hotfix for your endpoint.\n\nTo make this right, I've credited $150 to your account and upgraded your support tier to 24/7 dedicated routing.\n\nBest regards,\nAlex Morgan | Head of CX",
-        shorter: "Marcus,\n\nDeeply sorry for the delay on #CX-9021 and the API disruption. I've personally expedited your refund immediately and credited $150 to your balance. Our engineering lead is resolving the API sync now.\n\nAlex Morgan",
-        empathetic: "Dear Marcus,\n\nI completely understand how critical this is for FinScale, and I am genuinely sorry for letting you down on both the refund turnaround and the API stability. You deserve immediate resolution, not excuses.\n\nI have issued the refund with top priority, credited $150 as a goodwill gesture, and assigned our Senior Solutions Architect directly to your integration.\n\nWarm regards,\nAlex Morgan",
-        professional: "Marcus,\n\nThank you for bringing the delay with transaction #CX-9021 and the integration latency to our attention. Our finance team has initiated manual clearance today, and the technical incident has been escalated to Tier-3 support.\n\nA courtesy adjustment of $150 has been applied to your ledger for the inconvenience.\n\nSincerely,\nAlex Morgan"
+        default: "Hi Marcus,\n\nI sincerely apologize for the frustration with the 7-day refund delay and the API synchronization issue. I have personally escalated order #CX-9021 for immediate manual processing, and our VP of Engineering is already deploying a hotfix for your endpoint.\n\nTo make this right, I've credited ₹15,000 to your account and upgraded your support tier to 24/7 dedicated routing.\n\nBest regards,\nAlex Morgan | Head of CX",
+        shorter: "Marcus,\n\nDeeply sorry for the delay on #CX-9021 and the API disruption. I've personally expedited your refund immediately and credited ₹15,000 to your balance. Our engineering lead is resolving the API sync now.\n\nAlex Morgan",
+        empathetic: "Dear Marcus,\n\nI completely understand how critical this is for FinScale, and I am genuinely sorry for letting you down on both the refund turnaround and the API stability. You deserve immediate resolution, not excuses.\n\nI have issued the refund with top priority, credited ₹15,000 as a goodwill gesture, and assigned our Senior Solutions Architect directly to your integration.\n\nWarm regards,\nAlex Morgan",
+        professional: "Marcus,\n\nThank you for bringing the delay with transaction #CX-9021 and the integration latency to our attention. Our finance team has initiated manual clearance today, and the technical incident has been escalated to Tier-3 support.\n\nA courtesy adjustment of ₹15,000 has been applied to your ledger for the inconvenience.\n\nSincerely,\nAlex Morgan"
       }
     },
     {
@@ -111,7 +128,7 @@ const CX_DATA = {
       waitingTime: "42m ago",
       riskScore: 76,
       riskLevel: "At Risk",
-      ltv: "$28,500 ARR",
+      ltv: "₹28,50,000 ARR",
       since: "Jan 2024",
       aiRecommendation: "Offer priority reshipment via DHL Express at zero charge",
       intent: "Missing Shipment / SLA Inquiry",
@@ -153,14 +170,14 @@ const CX_DATA = {
       waitingTime: "1h ago",
       riskScore: 68,
       riskLevel: "At Risk",
-      ltv: "$62,000 ARR",
+      ltv: "₹62,00,000 ARR",
       since: "Jul 2023",
       aiRecommendation: "Provide updated Okta metadata XML and jump on Zoom debug bridge",
       intent: "Technical Configuration / Identity Setup",
       emotion: "Neutral Curiosity",
       whyRisk: [
         "150 enterprise users unable to log in this morning",
-        "Contract size $62K with scheduled expansion in Q4"
+        "Contract size ₹62,00,000 with scheduled expansion in Q4"
       ],
       nextActions: [
         "Share pre-validated Okta identity provider certificate.",
@@ -193,14 +210,14 @@ const CX_DATA = {
       waitingTime: "2h ago",
       riskScore: 22,
       riskLevel: "Satisfied",
-      ltv: "$95,000 ARR",
+      ltv: "₹95,00,000 ARR",
       since: "Nov 2022",
       aiRecommendation: "Share OpenAPI 3.1 webhook schema and SDK sample repo",
       intent: "Feature Enhancement / API Spec",
       emotion: "Collaborative & Engaged",
       whyRisk: [
         "High loyalty customer with 99% satisfaction record",
-        "Evaluating $120k contract expansion"
+        "Evaluating ₹1,20,00,000 contract expansion"
       ],
       nextActions: [
         "Send pre-built SAP connector schema.",
@@ -232,7 +249,7 @@ const CX_DATA = {
       waitingTime: "12m ago",
       riskScore: 92,
       riskLevel: "Critical",
-      ltv: "$34,000 ARR",
+      ltv: "₹34,00,000 ARR",
       since: "Apr 2024",
       aiRecommendation: "Engage priority incident commander and re-run dead-letter queue",
       intent: "Incident Outage / SLA Compensation",
@@ -245,7 +262,7 @@ const CX_DATA = {
       nextActions: [
         "Replay 1,420 failed webhook events from dead-letter backup queue.",
         "Provide root cause post-mortem within 2 hours.",
-        "Issue $500 enterprise infrastructure credit."
+        "Issue ₹45,000 enterprise infrastructure credit."
       ],
       journey: [
         { label: "Onboarded", time: "Apr 2024", status: "completed" },
@@ -262,33 +279,33 @@ const CX_DATA = {
     }
   ],
 
-  // 35+ Radar Nodes for interactive 2D scatter visualization
+  // 35+ Radar Nodes with Indian Rupee (INR) amounts
   radarCustomers: [
-    { id: "R-01", name: "Marcus Vance", company: "FinScale", sentiment: -0.84, risk: 88, value: 48000, segment: "Critical", tickets: 4 },
-    { id: "R-02", name: "Liam Gallagher", company: "RetailFlow", sentiment: -0.91, risk: 92, value: 34000, segment: "Critical", tickets: 5 },
-    { id: "R-03", name: "Sarah Jenkins", company: "CloudNest", sentiment: -0.62, risk: 76, value: 28500, segment: "At Risk", tickets: 3 },
-    { id: "R-04", name: "David Chen", company: "NexusAI", sentiment: -0.25, risk: 68, value: 62000, segment: "At Risk", tickets: 2 },
-    { id: "R-05", name: "Elena Rostova", company: "GlobalLogix", sentiment: 0.72, risk: 22, value: 95000, segment: "Satisfied", tickets: 1 },
-    { id: "R-06", name: "Zack Snyder", company: "OmniCorp", sentiment: -0.75, risk: 84, value: 42000, segment: "Critical", tickets: 3 },
-    { id: "R-07", name: "Chloe Bennett", company: "AeroTech", sentiment: -0.45, risk: 65, value: 31000, segment: "At Risk", tickets: 2 },
-    { id: "R-08", name: "Hiroshi Sato", company: "KantoRobotics", sentiment: 0.88, risk: 14, value: 110000, segment: "Happy", tickets: 0 },
-    { id: "R-09", name: "Amara Okafor", company: "FinNova", sentiment: 0.05, risk: 42, value: 22000, segment: "Neutral", tickets: 1 },
-    { id: "R-10", name: "Lucas Meyer", company: "Veloce Mobility", sentiment: 0.92, risk: 10, value: 78000, segment: "Happy", tickets: 0 },
-    { id: "R-11", name: "Priya Sharma", company: "DataPulse India", sentiment: 0.64, risk: 25, value: 54000, segment: "Satisfied", tickets: 1 },
-    { id: "R-12", name: "Mateo Rossi", company: "Milano Fashion", sentiment: -0.58, risk: 72, value: 36000, segment: "At Risk", tickets: 2 },
-    { id: "R-13", name: "Astrid Lindgren", company: "NordicPay", sentiment: 0.85, risk: 15, value: 89000, segment: "Happy", tickets: 0 },
-    { id: "R-14", name: "Carlos Santana", company: "Solaria Energy", sentiment: -0.15, risk: 48, value: 29000, segment: "Neutral", tickets: 1 },
-    { id: "R-15", name: "Fatima Al-Mansoor", company: "GulfLogistics", sentiment: 0.55, risk: 30, value: 67000, segment: "Satisfied", tickets: 1 },
-    { id: "R-16", name: "Julian Thorne", company: "Apex Biotech", sentiment: -0.80, risk: 86, value: 58000, segment: "Critical", tickets: 4 },
-    { id: "R-17", name: "Nadia Volkov", company: "CyberShield", sentiment: 0.12, risk: 38, value: 45000, segment: "Neutral", tickets: 1 },
-    { id: "R-18", name: "Oliver Queen", company: "StarCity Tech", sentiment: 0.78, risk: 18, value: 82000, segment: "Happy", tickets: 0 },
-    { id: "R-19", name: "Tariq Malik", company: "Indus Commerce", sentiment: -0.35, risk: 62, value: 26000, segment: "At Risk", tickets: 2 },
-    { id: "R-20", name: "Grace Hopper", company: "Compiler Works", sentiment: 0.95, risk: 8, value: 125000, segment: "Happy", tickets: 0 },
-    { id: "R-21", name: "Kenji Takahashi", company: "Zenith IoT", sentiment: -0.68, risk: 79, value: 39000, segment: "Critical", tickets: 3 },
-    { id: "R-22", name: "Sophie Martin", company: "Lyon MedTech", sentiment: 0.60, risk: 28, value: 51000, segment: "Satisfied", tickets: 1 },
-    { id: "R-23", name: "Devon Walker", company: "Strata Analytics", sentiment: -0.10, risk: 45, value: 33000, segment: "Neutral", tickets: 1 },
-    { id: "R-24", name: "Maya Angel", company: "BrightPath Ed", sentiment: 0.82, risk: 16, value: 72000, segment: "Happy", tickets: 0 },
-    { id: "R-25", name: "Henrik Ibsen", company: "Fjord Media", sentiment: -0.52, risk: 66, value: 24000, segment: "At Risk", tickets: 2 }
+    { id: "R-01", name: "Marcus Vance", company: "FinScale", sentiment: -0.84, risk: 88, value: 4800000, segment: "Critical", tickets: 4 },
+    { id: "R-02", name: "Liam Gallagher", company: "RetailFlow", sentiment: -0.91, risk: 92, value: 3400000, segment: "Critical", tickets: 5 },
+    { id: "R-03", name: "Sarah Jenkins", company: "CloudNest", sentiment: -0.62, risk: 76, value: 2850000, segment: "At Risk", tickets: 3 },
+    { id: "R-04", name: "David Chen", company: "NexusAI", sentiment: -0.25, risk: 68, value: 6200000, segment: "At Risk", tickets: 2 },
+    { id: "R-05", name: "Elena Rostova", company: "GlobalLogix", sentiment: 0.72, risk: 22, value: 9500000, segment: "Satisfied", tickets: 1 },
+    { id: "R-06", name: "Zack Snyder", company: "OmniCorp", sentiment: -0.75, risk: 84, value: 4200000, segment: "Critical", tickets: 3 },
+    { id: "R-07", name: "Chloe Bennett", company: "AeroTech", sentiment: -0.45, risk: 65, value: 3100000, segment: "At Risk", tickets: 2 },
+    { id: "R-08", name: "Hiroshi Sato", company: "KantoRobotics", sentiment: 0.88, risk: 14, value: 11000000, segment: "Happy", tickets: 0 },
+    { id: "R-09", name: "Amara Okafor", company: "FinNova", sentiment: 0.05, risk: 42, value: 2200000, segment: "Neutral", tickets: 1 },
+    { id: "R-10", name: "Lucas Meyer", company: "Veloce Mobility", sentiment: 0.92, risk: 10, value: 7800000, segment: "Happy", tickets: 0 },
+    { id: "R-11", name: "Priya Sharma", company: "DataPulse India", sentiment: 0.64, risk: 25, value: 5400000, segment: "Satisfied", tickets: 1 },
+    { id: "R-12", name: "Mateo Rossi", company: "Milano Fashion", sentiment: -0.58, risk: 72, value: 3600000, segment: "At Risk", tickets: 2 },
+    { id: "R-13", name: "Astrid Lindgren", company: "NordicPay", sentiment: 0.85, risk: 15, value: 8900000, segment: "Happy", tickets: 0 },
+    { id: "R-14", name: "Carlos Santana", company: "Solaria Energy", sentiment: -0.15, risk: 48, value: 2900000, segment: "Neutral", tickets: 1 },
+    { id: "R-15", name: "Fatima Al-Mansoor", company: "GulfLogistics", sentiment: 0.55, risk: 30, value: 6700000, segment: "Satisfied", tickets: 1 },
+    { id: "R-16", name: "Julian Thorne", company: "Apex Biotech", sentiment: -0.80, risk: 86, value: 5800000, segment: "Critical", tickets: 4 },
+    { id: "R-17", name: "Nadia Volkov", company: "CyberShield", sentiment: 0.12, risk: 38, value: 4500000, segment: "Neutral", tickets: 1 },
+    { id: "R-18", name: "Oliver Queen", company: "StarCity Tech", sentiment: 0.78, risk: 18, value: 8200000, segment: "Happy", tickets: 0 },
+    { id: "R-19", name: "Tariq Malik", company: "Indus Commerce", sentiment: -0.35, risk: 62, value: 2600000, segment: "At Risk", tickets: 2 },
+    { id: "R-20", name: "Grace Hopper", company: "Compiler Works", sentiment: 0.95, risk: 8, value: 12500000, segment: "Happy", tickets: 0 },
+    { id: "R-21", name: "Kenji Takahashi", company: "Zenith IoT", sentiment: -0.68, risk: 79, value: 3900000, segment: "Critical", tickets: 3 },
+    { id: "R-22", name: "Sophie Martin", company: "Lyon MedTech", sentiment: 0.60, risk: 28, value: 5100000, segment: "Satisfied", tickets: 1 },
+    { id: "R-23", name: "Devon Walker", company: "Strata Analytics", sentiment: -0.10, risk: 45, value: 3300000, segment: "Neutral", tickets: 1 },
+    { id: "R-24", name: "Maya Angel", company: "BrightPath Ed", sentiment: 0.82, risk: 16, value: 7200000, segment: "Happy", tickets: 0 },
+    { id: "R-25", name: "Henrik Ibsen", company: "Fjord Media", sentiment: -0.52, risk: 66, value: 2400000, segment: "At Risk", tickets: 2 }
   ],
 
   // Executive AI Insights Page Data
@@ -300,8 +317,8 @@ const CX_DATA = {
       title: "Refund complaints increased 21% in 48 hours",
       confidence: "91%",
       affectedCustomers: 84,
-      impact: "$118,000 ARR exposed",
-      rootCause: "Automated webhook retry timeout during Stripe v3 gateway migration.",
+      impact: "₹1,18,00,000 ARR exposed",
+      rootCause: "Automated webhook retry timeout during payment gateway migration.",
       recommendation: "Investigate refund processing delays and provision automated retry fallbacks.",
       cta: "View affected tickets"
     },
@@ -312,7 +329,7 @@ const CX_DATA = {
       title: "Mid-Market SaaS cohort showing 24% drop in weekly active sessions",
       confidence: "88%",
       affectedCustomers: 19,
-      impact: "$74,000 ARR exposed",
+      impact: "₹74,00,000 ARR exposed",
       rootCause: "New navigation menu obscured the custom reporting export tool.",
       recommendation: "Trigger in-app guided walkthrough tooltip and notify customer success managers.",
       cta: "Deploy Retention Campaign"

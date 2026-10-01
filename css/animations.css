@@ -46,6 +46,34 @@
   }
 }
 
+@keyframes orbit {
+  0% {
+    transform: rotate(calc(var(--angle, 0) * 1deg)) translateY(calc(var(--radius, 160) * -1px)) rotate(calc(var(--angle, 0) * -1deg));
+  }
+  100% {
+    transform: rotate(calc(var(--angle, 0) * 1deg + 360deg)) translateY(calc(var(--radius, 160) * -1px)) rotate(calc(var(--angle, 0) * -1deg - 360deg));
+  }
+}
+
+.animate-orbit {
+  animation: orbit calc(var(--duration, 20) * 1s) linear infinite;
+}
+
+@keyframes imageGlow {
+  0%, 100% {
+    opacity: 0.45;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+.animate-image-glow {
+  animation: imageGlow 4s ease-in-out infinite;
+}
+
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -106,38 +134,39 @@
   }
 }
 
-/* Utility Animation Classes */
+/* Utility Animation Classes - Snappy & Instant */
 .animate-fade-in {
-  animation: fadeIn 0.3s var(--ease-spring) forwards;
+  animation: fadeIn 0.15s var(--ease-spring) forwards;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.25s var(--ease-spring) forwards;
+  animation: scaleIn 0.12s var(--ease-spring) forwards;
 }
 
 .animate-float {
-  animation: floatSlow 6s ease-in-out infinite;
+  animation: floatSlow 3.5s ease-in-out infinite;
 }
 
 .animate-float-delayed {
-  animation: floatReverse 7s ease-in-out infinite;
+  animation: floatReverse 4s ease-in-out infinite;
 }
 
 .animate-pulse-glow {
-  animation: pulseGlow 3s ease-in-out infinite;
+  animation: pulseGlow 1.8s ease-in-out infinite;
 }
 
 .animate-spin-slow {
-  animation: spinSlow 12s linear infinite;
+  animation: spinSlow 6s linear infinite;
 }
 
 .skeleton-shimmer {
   background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
   background-size: 200% 100%;
-  animation: shimmer 1.8s infinite;
+  animation: shimmer 1.2s infinite;
 }
 
 /* Subtle transitions for buttons and interactive elements */
 button, a, input, select, textarea, .interactive-card, .clickable-row {
   transition: all var(--duration-fast) var(--ease-smooth);
 }
+

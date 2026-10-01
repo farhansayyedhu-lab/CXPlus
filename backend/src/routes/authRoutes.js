@@ -4,12 +4,16 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 const { requireAuth } = require('../middleware/authMiddleware');
-const { validate } = require('../middleware/validateMiddleware');
-const { signupSchema, loginSchema, updateProfileSchema } = require('../validators/authValidator');
+const { validate } = require('../middleware/validationMiddleware');
+const { registerSchema, loginSchema } = require('../validators/authValidator');
+const { authLimiter } = require('../middleware/rateLimitMiddleware');
 
-router.post('/register', validate(signupSchema), authController.register);
-router.post('/login', validate(loginSchema), authController.login);
+// Public authentication endpoints
+router.post('/register', authLimiter, validate(registerSchema), authController.register);
+router.post('/login', authLimiter, validate(loginSchema), authController.login);
+
+// Protected endpoints
 router.get('/me', requireAuth, authController.me);
-router.put('/profile', requireAuth, validate(updateProfileSchema), authController.updateProfile);
+router.post('/logout', requireAuth, authController.logout);
 
 module.exports = router;

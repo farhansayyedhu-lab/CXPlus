@@ -5,92 +5,56 @@ const { sendSuccess } = require('../utils/response');
 
 class AIController {
   /**
-   * Generate contextual customer response with tone variations (AI Composer)
+   * 1. Full Ticket Intelligence Analysis (Section 9)
+   */
+  async analyzeTicket(req, res, next) {
+    try {
+      const { ticketId } = req.body;
+      const analysis = await geminiService.analyzeTicket(ticketId);
+      return sendSuccess(res, analysis, 'Ticket analyzed successfully by Gemini AI');
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
+   * 2. Regenerate Contextual AI Response with requested Tone (Section 10)
+   */
+  async regenerateResponse(req, res, next) {
+    try {
+      const { ticketId, tone, customerName, issue } = req.body;
+      const result = await geminiService.regenerateResponse({ ticketId, tone, customerName, issue });
+      return sendSuccess(res, result, 'AI response generated successfully');
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  /**
+   * 3. Response Composer helper (for frontend composer)
    */
   async generateResponse(req, res, next) {
     try {
-      const {
-        customerId,
-        customerName,
-        issue,
-        tone = 'default',
-        intent,
-        ltv,
-        riskScore,
-        customInstructions
-      } = req.body;
-
-      const result = await geminiService.generateCustomerResponse({
-        customerName,
-        issue,
+      const { ticketId, tone = 'default', customerName, issue } = req.body;
+      const result = await geminiService.regenerateResponse({
+        ticketId,
         tone,
-        intent,
-        ltv,
-        riskScore,
-        customInstructions
+        customerName: customerName || 'Customer',
+        issue: issue || 'General Customer Service'
       });
-
-      return sendSuccess(res, result, 'AI Response generated successfully');
+      return sendSuccess(res, result, 'AI response synthesized');
     } catch (err) {
       next(err);
     }
   }
 
   /**
-   * Sentiment & Emotion Analysis
+   * 4. Aggregate Business Insights (Section 12)
    */
-  async analyzeSentiment(req, res, next) {
+  async generateInsights(req, res, next) {
     try {
-      const { text, context } = req.body;
-      const analysis = await geminiService.analyzeSentiment(text, context);
-      return sendSuccess(res, analysis, 'Sentiment analysis completed');
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  /**
-   * Predict churn risk & next best action
-   */
-  async predictChurn(req, res, next) {
-    try {
-      const { customerName, recentTickets = [], unresolvedCount = 1 } = req.body;
-
-      let riskScore = 30 + (unresolvedCount * 15);
-      if (riskScore > 95) riskScore = 95;
-
-      const reasons = [
-        `${unresolvedCount} unresolved friction touchpoints detected in active period`,
-        'Sentiment degradation observed over consecutive interactions',
-        'Customer satisfaction trajectory trending downward'
-      ];
-
-      const nextActions = [
-        'Issue immediate service credit or SLA waiver',
-        'Schedule proactive executive outreach from Customer Success lead',
-        'Prioritize hotfix deployment with engineering leadership'
-      ];
-
-      return sendSuccess(res, {
-        customerName: customerName || 'Valued Account',
-        riskScore,
-        riskLevel: riskScore > 75 ? 'Critical' : riskScore > 50 ? 'High' : 'Medium',
-        whyRisk: reasons,
-        nextActions
-      }, 'Churn prediction generated');
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  /**
-   * Summarize support conversation
-   */
-  async summarizeTicket(req, res, next) {
-    try {
-      const { conversationHistory } = req.body;
-      const summary = await geminiService.summarizeTicket(conversationHistory);
-      return sendSuccess(res, summary, 'Conversation summarized');
+      const insights = await geminiService.generateInsights();
+      return sendSuccess(res, insights, 'AI business insights generated successfully');
     } catch (err) {
       next(err);
     }

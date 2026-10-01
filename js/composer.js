@@ -1,6 +1,6 @@
 /* ==========================================================================
    CXPulse AI Response Composer Module
-   Dynamic AI tone adjustment, live edits, working action triggers
+   Dynamic AI tone adjustment via Gemini AI, live edits, working action triggers
    ========================================================================== */
 
 const CXComposer = {
@@ -14,21 +14,10 @@ const CXComposer = {
     this.render();
   },
 
-  setTone(tone) {
+  async setTone(tone) {
     this.activeTone = tone;
     const textarea = document.getElementById('composer-text-input');
     if (!textarea || !this.currentCustomer) return;
-
-    const suggested = this.currentCustomer.suggestedResponses;
-    const newText = (suggested && suggested[tone]) ? suggested[tone] : suggested.default;
-
-    // Simulate AI rapid re-generation effect
-    textarea.style.opacity = '0.4';
-    setTimeout(() => {
-      textarea.value = newText;
-      textarea.style.opacity = '1';
-      CXPulseApp.showToast(`AI tone adapted: ${tone.toUpperCase()}`, 'ai');
-    }, 180);
 
     // Update tone button active states
     document.querySelectorAll('.tone-btn').forEach(b => {
@@ -42,14 +31,47 @@ const CXComposer = {
         b.style.background = 'transparent';
       }
     });
+
+    // Rapid visual cue
+    textarea.style.opacity = '0.4';
+    CXPulseApp.showToast(`AI calibrating tone: ${tone.toUpperCase()}...`, 'ai');
+
+    // 1. Try Live Gemini API call via Backend
+    const backendText = await CX_API.regenerateResponse(this.currentCustomer.id, tone);
+    if (backendText) {
+      textarea.value = backendText;
+      textarea.style.opacity = '1';
+      CXPulseApp.showToast(`✨ Response calibrated with Gemini AI (${tone.toUpperCase()})`, 'ai');
+      return;
+    }
+
+    // 2. Local heuristic fallback
+    const suggested = this.currentCustomer.suggestedResponses;
+    const newText = (suggested && suggested[tone]) ? suggested[tone] : (suggested?.default || `Hi ${this.currentCustomer.name.split(' ')[0]},\n\nWe are actively working on resolving this.`);
+
+    setTimeout(() => {
+      textarea.value = newText;
+      textarea.style.opacity = '1';
+      CXPulseApp.showToast(`AI tone adapted: ${tone.toUpperCase()}`, 'ai');
+    }, 180);
   },
 
-  regenerate() {
+  async regenerate() {
     const textarea = document.getElementById('composer-text-input');
-    if (!textarea) return;
+    if (!textarea || !this.currentCustomer) return;
 
     textarea.style.opacity = '0.3';
-    CXPulseApp.showToast("Synthesizing fresh AI response with updated context...", "ai");
+    CXPulseApp.showToast("Synthesizing fresh AI response with Gemini...", "ai");
+
+    const liveText = await CX_API.regenerateResponse(this.currentCustomer.id, this.activeTone || 'default');
+    if (liveText) {
+      textarea.value = liveText;
+      textarea.style.opacity = '1';
+      CXPulseApp.showToast("✨ Fresh Gemini AI Response Synthesized", "ai");
+      return;
+    }
+
+    // Heuristic fallback
     setTimeout(() => {
       const variations = [
         `Dear ${this.currentCustomer.name.split(' ')[0]},\n\nThank you for holding. I have directly bypassed standard escalation channels to resolve your issue. We have applied a complimentary service credit and dispatched a dedicated engineer to assist you immediately.\n\nWarm regards,\nAlex Morgan | Head of CX`,
@@ -70,37 +92,47 @@ const CXComposer = {
     CXPulseApp.showToast(`Draft saved for ${this.currentCustomer.name}`, "success");
   },
 
-  sendResponse() {
+  async sendResponse() {
     const textarea = document.getElementById('composer-text-input');
     if (!textarea || !this.currentCustomer) return;
 
     const btn = document.getElementById('btn-send-response');
     if (btn) btn.disabled = true;
 
-    CXPulseApp.showToast(`Sending AI response to ${this.currentCustomer.email}...`, "ai");
+    const responseText = textarea.value;
+    CXPulseApp.showToast(`Dispatching AI response to ${this.currentCustomer.email}...`, "ai");
+
+    // Send through backend API
+    await CX_API.useAiResponse(this.currentCustomer.id, responseText, 'Alex Morgan');
+
     setTimeout(() => {
-      CXPulseApp.showToast(`✓ Response sent successfully to ${this.currentCustomer.name}`, "success");
+      CXPulseApp.showToast(`✓ Response dispatched to ${this.currentCustomer.name}`, "success");
       if (btn) btn.disabled = false;
-      // Close drawer after short delay
       setTimeout(() => {
         CXPulseApp.closeDrawer();
       }, 700);
-    }, 600);
+    }, 500);
   },
 
-  escalateTicket() {
+  async escalateTicket() {
     if (!this.currentCustomer) return;
-    CXPulseApp.showToast(`⚡ Ticket #${this.currentCustomer.id} escalated to Executive Incident Commander`, "error");
+    CXPulseApp.showToast(`⚡ Escalating #${this.currentCustomer.id} to Executive Commander...`, "error");
+
+    await CX_API.escalateTicket(this.currentCustomer.id, 'Escalated by Head of CX');
+
     setTimeout(() => {
-      CXPulseApp.closeDrawer();
-    }, 600);
+      CXPulseApp.showToast(`🚨 Ticket escalated to Tier-1 Executive Response`, "error");
+      setTimeout(() => {
+        CXPulseApp.closeDrawer();
+      }, 600);
+    }, 500);
   },
 
   render() {
     const container = document.getElementById('composer-container');
     if (!container || !this.currentCustomer) return;
 
-    const defaultText = this.currentCustomer.suggestedResponses?.default || "Drafting intelligent response...";
+    const defaultText = this.currentCustomer.suggestedResponses?.default || this.currentCustomer.ai_response || "Drafting intelligent response...";
 
     container.innerHTML = `
       <div class="response-composer">

@@ -244,7 +244,7 @@ const CXRadar = {
             </div>
             <div style="display:flex; justify-content:space-between; gap:12px; font-size:12px;">
               <span style="color:#64748B;">Annual ARR:</span>
-              <span style="font-weight:600; color:#F8FAFC;">$${found.value.toLocaleString()}</span>
+              <span style="font-weight:600; color:#F8FAFC;">${new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(found.value)}</span>
             </div>
             <div style="margin-top:8px; padding-top:6px; border-top:1px solid rgba(255,255,255,0.08); font-size:11px; color:#A855F7;">
               Click node to open AI Profile →
@@ -281,13 +281,15 @@ const CXRadar = {
       return;
     }
 
+    const formatINR = (val) => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(val);
+
     listContainer.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
         <span style="font-size:12px; font-weight:600; text-transform:uppercase; color:var(--text-tertiary);">
           Matched Accounts (${this.filteredCustomers.length})
         </span>
         <span style="font-size:12px; color:var(--text-secondary);">
-          Total ARR: <b>$${this.filteredCustomers.reduce((acc, c) => acc + c.value, 0).toLocaleString()}</b>
+          Total ARR: <b>${formatINR(this.filteredCustomers.reduce((acc, c) => acc + c.value, 0))}</b>
         </span>
       </div>
       <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:12px;">
@@ -304,7 +306,7 @@ const CXRadar = {
               <span class="badge ${c.risk >= 80 ? 'badge-critical' : c.risk >= 60 ? 'badge-warning' : 'badge-positive'}">${c.segment}</span>
             </div>
             <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--text-secondary); margin-top:8px; border-top:1px solid var(--border-subtle); padding-top:6px;">
-              <span>ARR: <b>$${c.value.toLocaleString()}</b></span>
+              <span>ARR: <b>${formatINR(c.value)}</b></span>
               <span>Risk: <b style="color:${c.risk >= 80 ? '#F43F5E' : c.risk >= 60 ? '#F59E0B' : '#10B981'};">${c.risk}%</b></span>
               <span>Open Tickets: <b>${c.tickets}</b></span>
             </div>
