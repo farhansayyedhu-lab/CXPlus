@@ -3,7 +3,8 @@
 const express = require('express');
 const router = express.Router();
 const ticketsController = require('../controllers/ticketsController');
-const { createTicketSchema, updateTicketSchema, validate } = require('../validators/ticketValidator');
+const { validate } = require('../middleware/validateMiddleware');
+const { createTicketSchema, updateTicketSchema } = require('../validators/ticketValidator');
 
 router.get('/priority-queue', ticketsController.getPriorityQueue);
 router.get('/:id', ticketsController.getTicketById);

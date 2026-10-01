@@ -3,13 +3,13 @@
 const express = require('express');
 const router = express.Router();
 const aiController = require('../controllers/aiController');
+const { validate } = require('../middleware/validateMiddleware');
 const {
   generateResponseSchema,
   analyzeSentimentSchema,
   predictChurnSchema,
   summarizeTicketSchema
 } = require('../validators/aiValidator');
-const { validate } = require('../validators/authValidator');
 
 router.post('/generate-response', validate(generateResponseSchema), aiController.generateResponse);
 router.post('/analyze-sentiment', validate(analyzeSentimentSchema), aiController.analyzeSentiment);

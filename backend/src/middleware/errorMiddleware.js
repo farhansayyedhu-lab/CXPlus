@@ -27,4 +27,4 @@ function errorMiddleware(err, req, res, next) {
   return sendError(res, message, statusCode, env.isDev ? err.stack : undefined);
 }
 
-module.exports = { errorMiddleware };
+module.exports = errorMiddleware;
